@@ -2,7 +2,6 @@ function Card(props) {
 
   function handleCardClick() {
     props.handleCardClick(props);
-    console.log(props)
   }
 
   return (
