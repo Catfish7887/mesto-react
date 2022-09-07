@@ -11,7 +11,7 @@ function ImagePopup(props) {
           <img src={props.selectedCard.link} alt={props.selectedCard.name} className="popup__image" />
           <figcaption className="popup__image-caption">{props.selectedCard.name}</figcaption>
           <>
-            {props.selectedCard.name?(<button onClick={props.onClose} type="button" aria-label="Закрыть" className="popup__close-btn"></button>):null}
+            {props.selectedCard.name ? (<button onClick={props.onClose} type="button" aria-label="Закрыть" className="popup__close-btn"></button>) : null}
           </>
         </figure>
       </div>
