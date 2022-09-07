@@ -1,8 +1,14 @@
 function Card(props) {
+
+  function handleCardClick() {
+    props.handleCardClick(props);
+    console.log(props)
+  }
+
   return (
     <>
       <li className="place">
-        <img src={props.link} alt="#" className="place__image" />
+        <img src={props.link} alt={props.name} onClick={handleCardClick} className="place__image" />
         <div className="place__container">
           <h2 className="place__name">{props.name}</h2>
           <div className="place__like-container">

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./Header.js";
 import Main from "./Main.js";
 import Footer from "./Footer.js";
@@ -9,7 +9,7 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false)
   const [isAddPlacePopupOpenm, setIsAddPlacePopupOpen] = useState(false)
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false)
-  const [selectedCard, setSelectedCard] = useState(null)
+  const [selectedCard, setSelectedCard] = useState({})
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true)
@@ -34,6 +34,7 @@ function App() {
     setIsAddPlacePopupOpen(false)
     setIsEditAvatarPopupOpen(false)
     setIsEditProfilePopupOpen(false)
+    setSelectedCard({})
 
   }
 
@@ -47,6 +48,7 @@ function App() {
         handleAddPlaceClick={handleAddPlaceClick}
         handleEditAvatarClick={handleEditAvatarClick}
         handleEditProfileClick={handleEditProfileClick}
+        handleCardClick={handleCardClick}
       />
       <Footer />
 
@@ -80,7 +82,7 @@ function App() {
         <button id="delete-form-submit" type="submit" className="popup__submit-btn ">ДА</button>
       </>} />
 
-      {/* <ImagePopup /> */}
+      <ImagePopup onClose={closeAllPopups} selectedCard={selectedCard}/>
     </>
   );
 }
