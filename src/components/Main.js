@@ -1,43 +1,48 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import Avatar from '../images/Avatar.png'
 import api from "../utils/Api.js";
 import Card from './Card';
+import CurrentUserContext from '../contexts/CurrentUserContext';
 
 function Main(props) {
-  const [userName, setUserName] = useState('')
-  const [userDescription, setUserDescription] = useState('')
-  const [userAvatar, setUserAvatar] = useState('')
+
   const [cards, setCards] = useState([])
 
-  const getProfileInfo = api.getProfile()
+  const userContext = useContext(CurrentUserContext)
+
+  console.log(userContext)
   const getCards = api.getInitialCards()
 
-  useEffect(() => {
-    Promise.all([getProfileInfo, getCards])
-      .then(([profileData, cards]) => {
 
-        setUserAvatar(profileData.avatar)
-        setUserDescription(profileData.about)
-        setUserName(profileData.name)
+  api.getInitialCards()
+  .then(res=>setCards(res))
+  .catch(err=>console.log(err))
+  // useEffect(() => {
+  //   Promise.all([getProfileInfo, getCards])
+  //     .then(([profileData, cards]) => {
 
-        setCards(cards)
-      }).catch(err => console.log(err))
+  //       setUserAvatar(profileData.avatar)
+  //       setUserDescription(profileData.about)
+  //       setUserName(profileData.name)
 
-  }, [])
+  //       setCards(cards)
+  //     }).catch(err => console.log(err))
+
+  // }, [])
 
   return (
     <main className="main">
       <section className="profile">
 
         <button type="button" aria-label="Изменить аватар" onClick={props.handleEditAvatarClick} className="profile__avatar-btn">
-          <img src={userAvatar === '' ? Avatar : userAvatar} alt="Аватар пользователя" className="profile__avatar" />
+          <img src={userContext.avatar} alt="Аватар пользователя" className="profile__avatar" />
         </button>
         <div className="profile__name-container">
           <div className="profile__flex-container">
-            <h1 className="profile__name">{userName}</h1>
+            <h1 className="profile__name">{userContext.name}</h1>
             <button type="button" aria-label="Редактировать" onClick={props.handleEditProfileClick} className="profile__edit-btn"></button>
           </div>
-          <p className="profile__about">{userDescription}</p>
+          <p className="profile__about">{userContext.about}</p>
         </div>
         <button aria-label="Добавить" type="button" onClick={props.handleAddPlaceClick} className="profile__add-btn"></button>
 

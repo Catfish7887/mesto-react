@@ -1,15 +1,24 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState} from "react";
 import Header from "./Header.js";
 import Main from "./Main.js";
 import Footer from "./Footer.js";
 import PopupWithForm from "./PopupWithForm.js"
 import ImagePopup from "./ImagePopup.js";
+import api from "../utils/Api.js";
+import CurrentUserContext from "../contexts/CurrentUserContext.js";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false)
   const [isAddPlacePopupOpenm, setIsAddPlacePopupOpen] = useState(false)
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false)
   const [selectedCard, setSelectedCard] = useState({})
+  const [currentUser, setCurrentUser] = useState({})
+
+  useEffect(() => {
+    api.getProfile()
+    .then(res=>{setCurrentUser(res)})
+    .catch(err=>console.log(err))
+  }, [])
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true)
@@ -43,6 +52,7 @@ function App() {
 
 
     <>
+    <CurrentUserContext.Provider value={currentUser}>
       <Header />
       <Main
         handleAddPlaceClick={handleAddPlaceClick}
@@ -78,6 +88,7 @@ function App() {
       <PopupWithForm buttonText={"ДА"} name="delete" onClose={closeAllPopups}/>
 
       <ImagePopup onClose={closeAllPopups} selectedCard={selectedCard}/>
+    </CurrentUserContext.Provider>
     </>
   );
 }
