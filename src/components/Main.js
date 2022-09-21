@@ -10,13 +10,26 @@ function Main(props) {
 
   const userContext = useContext(CurrentUserContext)
 
-  console.log(userContext)
   const getCards = api.getInitialCards()
 
 
-  api.getInitialCards()
-  .then(res=>setCards(res))
-  .catch(err=>console.log(err))
+  function handleCardLike(card) {
+   
+    const isLiked = card.likes.some(i => i._id === userContext._id);
+    // debugger
+    
+    api.changeCardLikeStatus(card._id, isLiked).then((newCard) => {
+        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+  
+    });
+} 
+
+  useEffect(()=>{
+    api.getInitialCards()
+    .then(res=>setCards(res))
+    .catch(err=>console.log(err))
+  }, [])
+
   // useEffect(() => {
   //   Promise.all([getProfileInfo, getCards])
   //     .then(([profileData, cards]) => {
@@ -50,7 +63,7 @@ function Main(props) {
       <section className="places">
 
         <ul className="places__list">
-          {cards.map(card => <Card key={card._id} {...card} handleCardClick={props.handleCardClick} />)}
+          {cards.map(card => <Card key={card._id} {...card} handleLike={handleCardLike} handleCardClick={props.handleCardClick} />)}
         </ul>
 
       </section>

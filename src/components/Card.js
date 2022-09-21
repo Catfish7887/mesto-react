@@ -9,10 +9,16 @@ function Card(props) {
   const isOwn = props.owner._id === userContext._id;
   const isLiked = props.likes.some(i => i._id === userContext._id);
 
-  const cardLikeButtonClassName = `${isLiked? 'place__like-btn place__like-btn' : 'place__like-btn'}`;
+  const cardLikeButtonClassName = `${isLiked? 'place__like-btn place__like-btn_active' : 'place__like-btn'}`;
 
   function handleCardClick() {
     props.handleCardClick(props);
+  }
+
+  // debugger
+
+  function handleLikeClick(){
+    props.handleLike(props)
   }
 
   return (
@@ -22,7 +28,7 @@ function Card(props) {
         <div className="place__container">
           <h2 className="place__name">{props.name}</h2>
           <div className="place__like-container">
-            <button type="button" aria-label="Лайк" className={cardLikeButtonClassName}></button>
+            <button type="button" onClick={handleLikeClick} aria-label="Лайк" className={cardLikeButtonClassName}></button>
             <p className="place__like-count">{props.likes.length}</p>
           </div>
         </div>

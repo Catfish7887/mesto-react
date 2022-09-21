@@ -15,21 +15,38 @@ class Api {
 
 
   };
-  like(id) {
-    return fetch(`${this._url}/cards/${id}/likes`, {
-      method: 'PUT',
-      headers: this._headers,
-    })
-      .then(res => this._handleResponce(res))
-  }
 
-  dislike(id) {
-    return fetch(`${this._url}/cards/${id}/likes`, {
-      method: 'DELETE',
-      headers: this._headers,
-    })
-      .then(res => this._handleResponce(res))
+  changeCardLikeStatus(id, isLiked){
+    if(isLiked){
+      return fetch(`${this._url}/cards/${id}/likes`, {
+        method: 'DELETE',
+        headers: this._headers,
+      })
+        .then(res => this._handleResponce(res))
+    }else{
+      return fetch(`${this._url}/cards/${id}/likes`, {
+        method: 'PUT',
+        headers: this._headers,
+      })
+        .then(res => this._handleResponce(res))
+    }
+
   }
+  // like(id) {
+  //   return fetch(`${this._url}/cards/${id}/likes`, {
+  //     method: 'PUT',
+  //     headers: this._headers,
+  //   })
+  //     .then(res => this._handleResponce(res))
+  // }
+
+  // dislike(id) {
+  //   return fetch(`${this._url}/cards/${id}/likes`, {
+  //     method: 'DELETE',
+  //     headers: this._headers,
+  //   })
+  //     .then(res => this._handleResponce(res))
+  // }
 
   editProfile({ name, about }) {
     return fetch(`${this._url}/users/me`, {
