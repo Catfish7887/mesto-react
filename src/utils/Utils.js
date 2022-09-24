@@ -14,9 +14,10 @@ const validConfig = {
 const apiConfig = {
   url: 'https://mesto.nomoreparties.co/v1/cohort-48',
   headers: {
-    authorization : 'addf4328-c45b-4c7d-9a30-f42d0ad04853',
+    authorization: 'addf4328-c45b-4c7d-9a30-f42d0ad04853',
     'content-type': 'application/json'
   }
 };
 
 export default apiConfig
+

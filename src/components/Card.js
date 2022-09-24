@@ -4,21 +4,28 @@ import CurrentUserContext from "../contexts/CurrentUserContext";
 
 function Card(props) {
 
-  const userContext = useContext(CurrentUserContext) 
+  const userContext = useContext(CurrentUserContext)
 
   const isOwn = props.owner._id === userContext._id;
   const isLiked = props.likes.some(i => i._id === userContext._id);
 
-  const cardLikeButtonClassName = `${isLiked? 'place__like-btn place__like-btn_active' : 'place__like-btn'}`;
+  const cardLikeButtonClassName = `${isLiked ? 'place__like-btn place__like-btn_active' : 'place__like-btn'}`;
+
+  function handleCardDelete() {
+    props.handleDelete(props)
+
+  }
 
   function handleCardClick() {
     props.handleCardClick(props);
+
   }
 
   // debugger
 
-  function handleLikeClick(){
+  function handleLikeClick() {
     props.handleLike(props)
+    
   }
 
   return (
@@ -32,7 +39,7 @@ function Card(props) {
             <p className="place__like-count">{props.likes.length}</p>
           </div>
         </div>
-        {isOwn ? <button type="button" aria-label="Удалить" className="place__delete-btn"></button> : null}
+        {isOwn ? <button type="button" aria-label="Удалить" onClick={handleCardDelete} className="place__delete-btn"></button> : null}
       </li>
     </>
   )

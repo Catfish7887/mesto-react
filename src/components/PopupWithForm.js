@@ -7,7 +7,7 @@ function PopupWithForm(props) {
         onMouseDown={(e) => { e.target.classList.contains('popup_opened') && props.onClose() }}
       >
         <div className="popup__container">
-          <form id="add-form" name={`${props.name}`} className="popup__form" noValidate>
+          <form id="add-form" name={`${props.name}`} className="popup__form" onSubmit={props.onSubmit} noValidate>
             <>{props.children}</>
             <button type="submit" className="popup__submit-btn">{props.buttonText}</button>
           </form>

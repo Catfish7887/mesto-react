@@ -16,14 +16,14 @@ class Api {
 
   };
 
-  changeCardLikeStatus(id, isLiked){
-    if(isLiked){
+  changeCardLikeStatus(id, isLiked) {
+    if (isLiked) {
       return fetch(`${this._url}/cards/${id}/likes`, {
         method: 'DELETE',
         headers: this._headers,
       })
         .then(res => this._handleResponce(res))
-    }else{
+    } else {
       return fetch(`${this._url}/cards/${id}/likes`, {
         method: 'PUT',
         headers: this._headers,
@@ -82,14 +82,11 @@ class Api {
       .then(res => this._handleResponce(res))
   };
 
-  createCard(data) {
+  createCard({ name, link }) {
     return fetch(`${this._url}/cards`, {
       method: 'POST',
       headers: this._headers,
-      body: JSON.stringify({
-        name: data.name,
-        link: data.link,
-      })
+      body: JSON.stringify({ name, link })
     })
       .then(res => this._handleResponce(res))
   };
