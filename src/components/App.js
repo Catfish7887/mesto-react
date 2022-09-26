@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, } from "react";
 import Header from "./Header.js";
 import Main from "./Main.js";
 import Footer from "./Footer.js";
@@ -32,13 +32,13 @@ function App() {
 
   }, [])
 
-
   function handleCardDelete(card) {
     api.deleteCardById(card._id).then(() => {
       setCards((state) => state.filter((c) => {
         return c._id !== card._id
       }));
     })
+    .catch(err => console.log(err))
 
   }
 
@@ -46,10 +46,11 @@ function App() {
 
     const isLiked = card.likes.some(i => i._id === currentUser._id);
 
-    api.changeCardLikeStatus(card._id, isLiked).then((newCard) => {
+    api.changeCardLikeStatus(card._id, isLiked)
+    .then((newCard) => {
       setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-
-    });
+    })
+    .catch(err=> console.log(err))
   }
 
   function handleEditAvatarClick() {

@@ -4,9 +4,7 @@ import CurrentUserContext from '../contexts/CurrentUserContext';
 
 function Main(props) {
 
-
   const userContext = useContext(CurrentUserContext)
-
 
   return (
     <main className="main">
@@ -28,7 +26,7 @@ function Main(props) {
       <section className="places">
 
         <ul className="places__list">
-          {props.cards.map(card => <Card key={card._id} {...card} handleDelete={props.onCardDelete} handleLike={props.onCardLike} handleCardClick={props.handleCardClick} />)}
+          {props.cards.map(card => (<Card key={card._id} {...card} handleDelete={props.onCardDelete} handleLike={props.onCardLike} handleCardClick={props.handleCardClick} />))}
         </ul>
 
       </section>

@@ -3,44 +3,47 @@ import CurrentUserContext from "../contexts/CurrentUserContext";
 import PopupWithForm from "./PopupWithForm";
 
 function EditProfilePopup(props) {
-  const [name, setName] = useState({ name: '' });
-  const [about, setAbout] = useState({ about: '' });
+
+  const [values, setValues] = useState({});
 
   const userContext = useContext(CurrentUserContext)
 
   useEffect(() => {
-    setName(userContext.name)
-    setAbout(userContext.about)
-  }, [userContext])
+    setValues({
+      name: userContext.name,
+      about: userContext.about
+    })
+  }, [userContext, props.isOpened])
 
-  function handleChange(e) {
-    e.target.name === 'name' ? setName(e.target.value) : setAbout(e.target.value)
 
-  }
+  function handleChange(event) {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+    setValues({ ...values, [name]: value });
+  };
 
   function handleSubmit(e) {
 
     e.preventDefault();
 
     props.onSubmit({
-      name: name,
-      about: about,
+      name: values.name,
+      about: values.about,
     });
-    
+
   }
 
   return (
-    <>
-      <PopupWithForm name={'editProfile'} isOpened={props.isOpened} onClose={props.onClose} buttonText={'Сохранить'} onSubmit={handleSubmit} children={
-        <>
-          <h2 className="popup__name">Редактировать профиль</h2>
-          <input id="name" onChange={handleChange} value={name || ''} name="name" minLength="2" maxLength="40" type="text" placeholder="Имя" className="popup__input" required />
-          <span className="popup__input-error name-error"></span>
-          <input id="about" onChange={handleChange} value={about || ''} name="about" type="text" placeholder="Обо мне" minLength="2" maxLength="200" className="popup__input" required />
-          <span className="popup__input-error about-error"></span>
-        </>
-      } />
-    </>
+    <PopupWithForm name={'editProfile'} isOpened={props.isOpened} onClose={props.onClose} buttonText={'Сохранить'} onSubmit={handleSubmit} children={
+      <>
+        <h2 className="popup__name">Редактировать профиль</h2>
+        <input id="name" onChange={handleChange} value={values.name || ''} name="name" minLength="2" maxLength="40" type="text" placeholder="Имя" className="popup__input" required />
+        <span className="popup__input-error name-error"></span>
+        <input id="about" onChange={handleChange} value={values.about || ''} name="about" type="text" placeholder="Обо мне" minLength="2" maxLength="200" className="popup__input" required />
+        <span className="popup__input-error about-error"></span>
+      </>
+    } />
   )
 
 }
