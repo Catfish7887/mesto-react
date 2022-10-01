@@ -8,6 +8,7 @@
 @import url(./blocks/popup/__input/popup__input.css);
 @import url(./blocks/popup/__close-btn/popup__close-btn.css);
 @import url(./blocks/popup/__submit-btn/popup__submit-btn.css);
+@import url(./blocks/popup/__submit-btn/_white/popup__submit-btn_white.css);
 @import url(./blocks/popup/__image-caption/popup__image-caption.css);
 @import url(./blocks/popup/__image/popup__image.css);
 @import url(./blocks/popup/__figure-container/popup__figure-container.css);
@@ -21,11 +22,14 @@
 @import url(./blocks/popup/__submit-btn/_inactive/popup__submit-btn_inactive.css);
 @import url(./blocks/popup/__error-text/popup__error-text.css);
 @import url(./blocks/popup/__name/_avatar/popup__name_avatar.css);
+@import url(./blocks/popup/__input/_white/popup__input_white.css);
 /* Стили для popup'a */
 
 
 @import url(./blocks/header/header.css);
 @import url(./blocks/header/__logo/header__logo.css);
+@import url(./blocks/header/__button/header__button.css);
+@import url(./blocks/header/__login-span/header__login-span.css);
 /* Стили для шапки */
 
 @import url(./blocks/profile/profile.css);
@@ -56,3 +60,8 @@
 @import url(./blocks/footer/__copyright/footer__copyright.css);
 /* Стили для футера */
 
+@import url(./blocks/authorization/authorization.css);
+@import url(./blocks/authorization/__header/authorization__header.css);
+@import url(./blocks/authorization/__button/authorization__button.css);
+@import url(./blocks/authorization/__span/authorization__span.css);
+@import url(./blocks/authorization/__span-container/authorization__span-container.css);

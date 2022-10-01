@@ -9,7 +9,7 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
-
+  background-color: transparent;
 }
 
 .popup__input:focus{

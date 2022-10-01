@@ -1,4 +1,5 @@
 import { useEffect, useState, } from "react";
+import { BrowserRouter, Route, Redirect, Routes } from 'react-router-dom';
 import Header from "./Header.js";
 import Main from "./Main.js";
 import Footer from "./Footer.js";
@@ -9,6 +10,8 @@ import CurrentUserContext from "../contexts/CurrentUserContext.js";
 import EditProfilePopup from "./EditProfilePopup.js";
 import EditAvatarPopup from "./EditAvatarPopup.js";
 import AddPlacePopup from "./AddPlacePopup.js";
+import Login from "./Login.js";
+import Register from "./Register.js";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false)
@@ -38,7 +41,7 @@ function App() {
         return c._id !== card._id
       }));
     })
-    .catch(err => console.log(err))
+      .catch(err => console.log(err))
 
   }
 
@@ -47,10 +50,10 @@ function App() {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
 
     api.changeCardLikeStatus(card._id, isLiked)
-    .then((newCard) => {
-      setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-    })
-    .catch(err=> console.log(err))
+      .then((newCard) => {
+        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+      })
+      .catch(err => console.log(err))
   }
 
   function handleEditAvatarClick() {
@@ -112,10 +115,26 @@ function App() {
   }
 
   return (
-    <>
+    <BrowserRouter>
       <CurrentUserContext.Provider value={currentUser}>
         <Header />
-        <Main
+
+        <Routes>
+          <Route path="/register" element={<Register />}/>
+          <Route path="/login" element={<Login />} />
+          <Route path="/" element={
+            <Main
+              handleAddPlaceClick={handleAddPlaceClick}
+              handleEditAvatarClick={handleEditAvatarClick}
+              handleEditProfileClick={handleEditProfileClick}
+              handleCardClick={handleCardClick}
+              cards={cards}
+              onCardDelete={handleCardDelete}
+              onCardLike={handleCardLike}
+            />
+          } />
+        </Routes>
+        {/* <Main
           handleAddPlaceClick={handleAddPlaceClick}
           handleEditAvatarClick={handleEditAvatarClick}
           handleEditProfileClick={handleEditProfileClick}
@@ -123,7 +142,7 @@ function App() {
           cards={cards}
           onCardDelete={handleCardDelete}
           onCardLike={handleCardLike}
-        />
+        /> */}
         <Footer />
 
         <EditProfilePopup onClose={closeAllPopups} onSubmit={editProfile} isOpened={isEditProfilePopupOpen} />
@@ -136,7 +155,7 @@ function App() {
 
         <ImagePopup onClose={closeAllPopups} selectedCard={selectedCard} />
       </CurrentUserContext.Provider>
-    </>
+    </BrowserRouter>
   );
 }
 
